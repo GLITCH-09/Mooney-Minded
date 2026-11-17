@@ -1,0 +1,13 @@
+# Install PyTorch first, for your CUDA version, e.g. for CUDA 12.8 or newer (RTX 50 series):
+#   pip install torch torchvision --index-url https://download.pytorch.org/whl/cu128
+# then check that your GPU's architecture is listed:
+#   python -c "import torch; print(torch.cuda.get_arch_list())"
+#
+# Needed by scripts/run_vlm.py and scripts/run_sam.py. SAM 3 and Qwen3-VL need transformers 5.
+transformers>=5
+accelerate
+bitsandbytes
+huggingface_hub
+pillow
+numpy
+opencv-python

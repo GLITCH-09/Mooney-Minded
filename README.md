@@ -56,6 +56,43 @@ result = make_mooney(cv2.imread("photo.jpg"), sigma=3, white_pct=40)
 cv2.imwrite("photo_mooney.png", result.image)
 ```
 
+## Pipeline, step by step
+
+Steps 1–3 need only `requirements.txt`. Steps 4–5 need a GPU and the environment from
+`requirements-models.txt` (install PyTorch for your CUDA version first; an RTX 50 card
+needs a build whose `torch.cuda.get_arch_list()` contains `sm_120`).
+
+1. **Dataset:** 10 COCO categories x 10 images, resized so the long side is 512 px.
+   ```bash
+   python -m scripts.build_dataset --out data
+   ```
+   Writes `data/Original/001.jpg` ... (cat 001-010, dog 011-020, horse 021-030,
+   elephant 031-040, zebra 041-050, giraffe 051-060, airplane 061-070, bus 071-080,
+   motorcycle 081-090, teddy bear 091-100), ground-truth masks in `data/gt/masks/`
+   and `data/labels.csv`. COCO's server only works over plain http, so this is intended.
+2. **Choose the Mooney setting by eye**, one image from several categories:
+   ```bash
+   python -m mooney sweep data/Original/001.jpg data/Original/021.jpg data/Original/041.jpg data/Original/061.jpg --out sweeps
+   ```
+3. **Generate all 100 Mooneys with that one setting:**
+   ```bash
+   python -m mooney batch data/Original data/Mooney --sigma 3 --white-pct 35 --manifest data/mooney_settings.csv
+   ```
+4. **Run the two vision systems.** Try three images first:
+   ```bash
+   python -m scripts.run_vlm --data data --out Result1 --limit 3
+   python -m scripts.run_sam --data data --out Result2 --limit 3
+   ```
+   then run both again without `--limit`. Finished images are skipped, so an
+   interrupted run can be restarted.
+   - `Result1` is Qwen3-VL answering four questions per image (name it, pick it from
+     ten options, agree to a true claim, agree to a false claim).
+   - `Result2` is SAM 3, told the object's name and asked to outline it.
+5. **Score:**
+   ```bash
+   python -m scripts.score --data data --vlm Result1 --sam Result2 --out scores
+   ```
+
 ## Tests
 
 ```bash
