@@ -1,0 +1,10 @@
+# Images and model weights stay local (the repo is public; dataset images come from ImageNet)
+data/
+outputs/
+submission/
+*.tgz
+*.pt
+*.safetensors
+__pycache__/
+.venv*/
+.ipynb_checkpoints/
