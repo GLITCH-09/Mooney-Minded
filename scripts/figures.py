@@ -13,10 +13,10 @@ import cv2
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
 
-from vision.common import CLASSES, TOP10, label_of, name_correct, read_csv  # noqa: E402
+from vision.common import CLASSES, TOP10, label_of, name_correct, read_csv
 
 BG, INK, MUTED, GRID, PALE = "#f7f6f3", "#181818", "#6f6f6b", "#e4e2dc", "#c9c6bd"
 BLUE, ORANGE = "#2a78d6", "#e55235"
@@ -310,7 +310,7 @@ def main() -> None:
     ap.add_argument("--out", type=Path, default=Path("figures"))
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
-    have = lambda *names: all((args.results / n).exists() for n in names)  # noqa: E731
+    have = lambda *names: all((args.results / n).exists() for n in names)
     jobs = [
         ((args.data / "Mooney").is_dir(), lambda: gallery(args.data, args.out)),
         ((args.outputs / "Result2" / "Mooney").is_dir(), lambda: sam_grid(args.outputs, args.out)),

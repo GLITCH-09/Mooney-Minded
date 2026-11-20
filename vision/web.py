@@ -63,7 +63,7 @@ def probe_of(key: tuple[str, int], prompt: str) -> str:
 
 def parse(text: str) -> tuple[dict[tuple[str, int], dict[str, str]], dict[str, str]]:
     answers: dict[tuple[str, int], dict[str, str]] = {}
-    meta = dict(re.findall(r"^# ([A-Z_]+):[ \t]*(.*)$", text, flags=re.M))
+    meta = dict(re.findall(r"^# ([A-Z_]+):[ \t]*(.*)$", text, flags=re.MULTILINE))
     key, probe, prompt, body, state = None, None, [], [], None
 
     def flush() -> None:

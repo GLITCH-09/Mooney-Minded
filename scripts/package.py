@@ -95,7 +95,7 @@ def main() -> None:
     (args.dest / f"{archive.name}.md5").write_text(f"{checksum}  {archive.name}\n")
 
     for d in sorted({p.parent.relative_to(root) for p in root.rglob("*") if p.is_file()}):
-        print(f"  {str(d):18s} {sum(1 for p in (root / d).iterdir() if p.is_file())} files")
+        print(f"  {d!s:18s} {sum(1 for p in (root / d).iterdir() if p.is_file())} files")
     print(f"{archive}  {archive.stat().st_size / 1e6:.1f} MB  md5 {checksum}")
     if problems:
         print("PROBLEMS:\n  - " + "\n  - ".join(problems))
