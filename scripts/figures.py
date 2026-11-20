@@ -193,14 +193,30 @@ def sam_scores(res: Path, out: Path) -> None:
     save(fig, out, "sam_scores.png")
 
 
-def sam_iou(res: Path, out: Path) -> None:
+def box_fill(data: Path) -> dict[str, float]:
+    """IoU of the prompt box itself with the true mask: the score of answering 'the whole box'."""
+    fills = {}
+    for path in sorted((data / "masks").glob("*.png")):
+        mask = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE) > 127
+        ys, xs = np.nonzero(mask)
+        fills[path.stem] = float(mask.sum() / ((np.ptp(ys) + 1) * (np.ptp(xs) + 1)))
+    return fills
+
+
+def sam_iou(res: Path, data: Path, out: Path) -> None:
     o, m = read_csv(res / "sam3_Original.csv"), read_csv(res / "sam3_Mooney.csv")
-    fig, ax = plt.subplots(figsize=(8, 4.4))
-    strips(ax, [("Photo · class name", num(o, "text_best_iou"), BLUE),
-                ("Mooney · class name", num(m, "text_best_iou"), ORANGE),
-                ("Photo · box", num(o, "box_iou"), BLUE),
-                ("Mooney · box", num(m, "box_iou"), ORANGE)],
-           "overlap with the true outline (IoU, SAM 3's best mask)", lambda v: f"median {np.median(v):.2f}")
+    series = [("Photo · class name", num(o, "text_best_iou"), BLUE),
+              ("Mooney · class name", num(m, "text_best_iou"), ORANGE),
+              ("Photo · box", num(o, "box_iou"), BLUE),
+              ("Mooney · box", num(m, "box_iou"), ORANGE)]
+    fills = box_fill(data) if (data / "masks").is_dir() else {}
+    if fills:
+        series.append(("the box alone", np.array([fills[Path(r["file"]).stem] for r in m]), MUTED))
+        beats = sum(float(r["box_iou"]) > fills[Path(r["file"]).stem] for r in m)
+        print(f"  box alone (no SAM): median IoU {np.median(list(fills.values())):.2f}; "
+              f"SAM 3 with the box beats it on {beats}/{len(m)} Mooneys")
+    fig, ax = plt.subplots(figsize=(8, 1.1 * len(series) + 0.8))
+    strips(ax, series, "overlap with the true outline (IoU, SAM 3's best mask)", lambda v: f"median {np.median(v):.2f}")
     ax.set_title("How well SAM 3's best mask matches the true outline")
     save(fig, out, "sam_iou.png")
 
@@ -279,7 +295,7 @@ def main() -> None:
         (have("qwen3vl4b_Original.csv", "qwen4max_Original.csv", "qwen4max_Mooney.csv"),
          lambda: scale(args.results, args.out)),
         (have("sam3_Original.csv", "sam3_Mooney.csv"), lambda: sam_scores(args.results, args.out)),
-        (have("sam3_Original.csv", "sam3_Mooney.csv"), lambda: sam_iou(args.results, args.out)),
+        (have("sam3_Original.csv", "sam3_Mooney.csv"), lambda: sam_iou(args.results, args.data, args.out)),
         (have("qwen3vl4b_Mooney.csv", "sam3_Mooney.csv"), lambda: scoreboard(args.data, args.results, args.out)),
     ]
     print(f"figures -> {args.out}")
