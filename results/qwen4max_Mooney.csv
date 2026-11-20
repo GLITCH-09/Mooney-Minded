@@ -1,0 +1,11 @@
+file,label,wrong_label,name_correct,pick_correct,pick_answer,yes_true,yes_false,ans_describe,ans_name,ans_pick,ans_claim_true,ans_claim_false
+006_giraffe.png,giraffe,toilet,0,,,0,0,A black silhouette of a shark swimming diagonally upward to the right against a white background.,Shark,,No,No
+012_elephant.png,elephant,fire hydrant,1,,,1,0,"A black silhouette of an elephant standing and facing right, with its trunk curled inward.",Elephant,,Yes,No
+023_horse.png,horse,airplane,0,,,0,0,"A black silhouette of a spiky, dragon-like sea creature with an open mouth and finned body.",Dragon,,No,No
+031_cat.png,cat,motorcycle,1,,,1,0,A black silhouette of a cat sitting and gazing up at a small flying object in the sky.,Cat,,Yes,No
+048_dog.png,dog,fire hydrant,0,,,0,0,A black silhouette of a frog or toad captured mid-leap beneath a horizontal line.,Frog,,No,No
+053_airplane.png,airplane,elephant,0,,,0,0,A black silhouette of a sailboat with tall masts floating on the water.,Sailboat,,No,No
+068_motorcycle.png,motorcycle,giraffe,0,,,0,0,"A black silhouette of a perched bird, resembling a parrot, facing left with a curved beak.",Parrot,,No,No
+074_teddy_bear.png,teddy bear,dog,0,,,1,0,A white bear-head silhouette formed by negative space against a solid black background.,Bear,,Yes,No
+087_fire_hydrant.png,fire hydrant,giraffe,0,,,0,0,A black silhouette of a castle or fortress featuring multiple towers and turrets.,Castle,,No,No
+099_toilet.png,toilet,dog,0,,,0,0,A repeating pattern of small black footprint-like shapes arranged in rows across a white field.,Footprints,,No,No

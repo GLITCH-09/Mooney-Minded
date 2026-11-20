@@ -95,6 +95,9 @@ def score(path: Path, results: Path) -> None:
     answers, meta = parse(path.read_text())
     print(f"model: {meta.get('MODEL_SHOWN_ON_SITE') or '?'}  thinking: {meta.get('THINKING_MODE') or '?'}")
     for prefix, split in SPLIT_OF.items():
+        if not any(k[0] == prefix and any(v.values()) for k, v in answers.items()):
+            print(f"[{split}] not run")
+            continue
         rows = []
         for i, stem in enumerate(TOP10, 1):
             got = {p: a for p, a in answers.get((prefix, i), {}).items() if a}
