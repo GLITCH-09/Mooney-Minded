@@ -62,8 +62,14 @@ def name_correct(answer: str, label: str) -> bool:
 
 
 def parse_letter(answer: str) -> str | None:
-    m = re.search(rf"\b([{LETTERS}])\b", answer.strip().upper())
-    return m.group(1) if m else None
+    a = answer.strip().upper()
+    m = re.fullmatch(rf"\W*([{LETTERS}])\W*", a)  # "B", "**B**", "B)"
+    if not m:
+        m = re.search(rf"\b([{LETTERS}])\)", a) or re.search(rf"ANSWER(?: IS)?:?\s*\W*([{LETTERS}])\b", a)
+    if m:
+        return m.group(1)
+    found = re.findall(rf"\b([{LETTERS}])\b", a)  # last standalone letter ("I think it's D" -> D)
+    return found[-1] if found else None
 
 
 def parse_yes(answer: str) -> bool | None:

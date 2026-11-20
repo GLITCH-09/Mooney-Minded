@@ -1,0 +1,101 @@
+file,label,wrong_label,name_correct,pick_correct,pick_answer,yes_true,yes_false,ans_describe,ans_name,ans_pick,ans_claim_true,ans_claim_false
+001_giraffe.png,giraffe,airplane,1,1,giraffe,1,0,"A giraffe with a distinctive spotted pattern is seen in profile, gently eating leaves from a tree branch against a backdrop of green foliage and bright sky.",giraffe,B,Yes,No
+002_giraffe.png,giraffe,dog,1,1,giraffe,1,0,"A close-up of a giraffe's head peeking through green foliage, looking directly at the camera with curious eyes.",giraffe head,J,Yes,No
+003_giraffe.png,giraffe,teddy bear,1,1,giraffe,1,0,A giraffe with a curious expression looks over a wooden fence in a grassy field.,giraffe head,F,Yes,No
+004_giraffe.png,giraffe,elephant,1,1,giraffe,1,0,"A giraffe stands at a green feeding station, eating hay from a metal cage enclosure.",giraffe,B,Yes,No
+005_giraffe.png,giraffe,cat,1,1,giraffe,1,0,"A life-sized giraffe statue stands indoors near a large window, with a tall palm tree and a city skyline featuring a prominent building visible outside.",giraffe statue,C,Yes,no
+006_giraffe.png,giraffe,toilet,1,1,giraffe,1,0,"A giraffe stands in a dry, grassy savanna, its long neck extended as it looks toward the right, with sparse trees and a cloudy sky in the background.",giraffe,B,Yes,No
+007_giraffe.png,giraffe,airplane,1,1,giraffe,1,0,"A giraffe with a patterned coat is grazing on grass in an enclosure, its head lowered near a fence.",giraffe,D,Yes,No
+008_giraffe.png,giraffe,motorcycle,1,1,giraffe,1,0,"A giraffe with a long neck and distinctive brown spots stands near a rocky outcrop, looking toward the right against a backdrop of green foliage.",giraffe head,G,Yes,No
+009_giraffe.png,giraffe,elephant,1,1,giraffe,1,0,"A young giraffe stands alone in a sandy, tree-lined enclosure, its long neck and distinctive spotted coat clearly visible.",giraffe,H,Yes,No
+010_giraffe.png,giraffe,motorcycle,1,1,giraffe,1,0,"A giraffe with a long neck and distinctive brown-and-white pattern stands in an enclosure, looking down at a rock.",giraffe,E,Yes,No
+011_elephant.png,elephant,giraffe,1,1,elephant,1,0,"A man washes a large elephant with a long stick in a sunlit, stone-walled enclosure.",elephant,G,Yes,No
+012_elephant.png,elephant,fire hydrant,1,1,elephant,1,0,"A large African elephant with prominent tusks stands in a grassy area near a body of water, its trunk curled upward.",elephant,C,Yes,No
+013_elephant.png,elephant,giraffe,1,1,elephant,1,0,"An elephant wades through shallow, rippling water with its trunk extended.",elephant,A,Yes,No
+014_elephant.png,elephant,toilet,1,1,elephant,1,0,"A dark elephant carries a red and blue saddle with a harness, walking on a grassy path.",elephant,I,Yes,No
+015_elephant.png,elephant,giraffe,1,1,elephant,1,0,"A large, dusty elephant stands in front of a shop with a blue sign in Bengali script, while people are visible inside and around it.",elephant,B,Yes,No
+016_elephant.png,elephant,motorcycle,1,1,elephant,1,0,"Three people stand with a large elephant on a riverbank, with mountains in the background.",elephant,F,yes,no
+017_elephant.png,elephant,toilet,1,1,elephant,1,0,"A young elephant stands alone in a dry, rocky enclosure with a blue curtain hanging in the background.",elephant,H,Yes,no
+018_elephant.png,elephant,airplane,1,1,elephant,1,0,"A decorated elephant with colorful paint on its face walks on a sunlit stone path, carrying a rider in traditional attire.",elephant,J,Yes,No
+019_elephant.png,elephant,airplane,1,1,elephant,1,0,"A young elephant with large ears and a small trunk stands in tall, dry grass, partially obscured by the vegetation.",baby elephant,I,Yes,No
+020_elephant.png,elephant,cat,1,1,elephant,1,0,"A large African elephant stands in a grassy field with trees in the background, its trunk extended forward.",elephant,G,Yes,No
+021_horse.png,horse,airplane,0,1,horse,0,0,"A black cow stands on a gravel path beneath a wooden pergola, with people dining at tables in the background.",black cow,F,No,No
+022_horse.png,horse,cat,1,1,horse,1,0,"A dark brown horse with a black mane stands in a grassy field under a tree, looking toward the camera with a calm expression.",horse,E,Yes,No
+023_horse.png,horse,airplane,1,1,horse,1,0,A woman in a red hat and white shirt stands beside a shiny brown horse in a grassy field under a partly cloudy sky.,horse,G,Yes,No
+024_horse.png,horse,toilet,1,1,horse,1,0,"A jockey in a yellow jacket rides a brown horse pulling a red sulky on a dirt track, with ""Magnum"" and ""Winston"" advertisements visible in the background.",horse and cart,E,Yes,No
+025_horse.png,horse,fire hydrant,1,1,horse,1,0,"A close-up of a brown horse with a white blaze and striking blue eyes, standing in a dry, grassy field with trees in the background.",horse head,D,Yes,No
+026_horse.png,horse,cat,1,1,horse,1,0,"A young girl stands proudly beside a dark brown horse in a sunlit, grassy mountain meadow, both looking toward the camera.",horse,I,Yes,No
+027_horse.png,horse,giraffe,1,1,horse,1,0,"A white horse with a long, flowing mane grazes peacefully among lush green ferns and foliage in a forest setting.",white horse,B,Yes,No
+028_horse.png,horse,giraffe,1,1,horse,1,0,A rider in equestrian gear guides a brown horse over a white and pink jump in an outdoor cross-country course.,horse jumping,G,Yes,No
+029_horse.png,horse,cat,1,1,horse,1,0,"A rider in equestrian gear sits atop a brown horse with a black mane, trotting along a dirt path with a cityscape in the background.",horse rider,D,Yes,no
+030_horse.png,horse,cat,1,1,horse,1,0,A rider in equestrian gear guides a brown horse over a colorful jump during an outdoor competition.,Horse jumping,F,Yes,No
+031_cat.png,cat,motorcycle,1,1,cat,1,0,"A fluffy tabby cat lounges on a windowsill, bathed in warm sunlight streaming through the glass.",cat on window,D,Yes,No
+032_cat.png,cat,toilet,1,1,cat,1,0,"A black cat is seen through a window, looking out at green foliage with its eyes glowing faintly.",black cat,B,Yes,No
+033_cat.png,cat,fire hydrant,1,1,cat,1,0,A sleek black cat with striking green eyes sits attentively in a patch of sunlit grass.,black cat,D,Yes,No
+034_cat.png,cat,horse,1,1,cat,1,0,A black and white cat wearing a pirate hat lounges comfortably inside a white cardboard box.,cat in box,E,yes,No
+035_cat.png,cat,fire hydrant,1,1,cat,1,0,A sleek black cat with glowing green eyes sits attentively on a bathroom countertop near a sink.,black cat,J,Yes,No
+036_cat.png,cat,teddy bear,1,1,cat,1,0,"A fluffy gray cat sits on a windowsill, gazing out at a rainy, blurred outdoor scene.",cat on windowsill,G,Yes,No
+037_cat.png,cat,teddy bear,1,1,cat,1,0,"A calico cat stands on a bathroom sink, looking up at the faucet with its head tilted.",calico cat,I,yes,no
+038_cat.png,cat,airplane,1,1,cat,1,0,"A striped tabby cat is peacefully sleeping on a cluttered desk with papers, pens, and books around it.",sleeping cat,A,Yes,no
+039_cat.png,cat,horse,1,1,cat,1,0,A white and gray cat with striking green eyes and a red bow tie sits attentively on a yellow patterned blanket.,white cat,C,Yes,No
+040_cat.png,cat,teddy bear,1,1,cat,1,0,"A tortoiseshell cat lounges on a patterned rug, gently holding a small orange carrot in its paw.",cat,J,Yes,No
+041_dog.png,dog,fire hydrant,1,1,dog,1,0,"A wet, black, white, and tan Australian Shepherd dog with its tongue out stands on a sandy beach.",dog,B,Yes,No
+042_dog.png,dog,cat,1,1,dog,1,0,"A large black dog lounges on a sandy beach with a surfboard nearby, as people and waves are visible in the background.",black dog,B,yes,no
+043_dog.png,dog,airplane,1,1,dog,1,0,"A determined bulldog with a brown collar is balancing on a skateboard, with people in the background.",skateboard dog,H,Yes,No
+044_dog.png,dog,teddy bear,1,1,dog,1,0,"A fluffy white dog with bright orange hair on its head sits on a red carpet, looking up with a happy, open-mouthed expression.",small dog,C,Yes,No
+045_dog.png,dog,cat,1,1,dog,1,0,A white dog with a curled tail runs along a sandy beach with gentle waves in the background.,white dog,C,Yes,No
+046_dog.png,dog,fire hydrant,1,1,dog,1,0,"A brown dog with its head out the window of a moving car, looking ahead with its tongue out.",dog looking out window,H,Yes,no
+047_dog.png,dog,airplane,1,1,dog,1,0,A brindle dog with warm brown eyes is lying on a carpet and playfully biting into the neck of a dark beer bottle.,dog bottle,D,Yes,No
+048_dog.png,dog,fire hydrant,1,1,dog,1,0,"A fluffy black, white, and gray dog with a pink nose holds a bright yellow frisbee in its mouth on a sandy beach with turquoise ocean waves in the background.",dog with frisbee,G,Yes,no
+049_dog.png,dog,toilet,1,1,dog,1,0,"A tan dog leaps into the air with its mouth open, catching a yellow frisbee in a grassy field.",jumping dog,D,Yes,No
+050_dog.png,dog,horse,1,1,dog,1,0,A black and tan dog is playfully biting a bright orange frisbee on a green grassy field.,dog playing frisbee,D,Yes,No
+051_airplane.png,airplane,teddy bear,1,1,airplane,1,0,A vintage biplane with a red and yellow roundel flies against a bright blue sky.,airplane,B,Yes,no
+052_airplane.png,airplane,horse,1,1,airplane,1,0,A vintage propeller airplane with a yellow nose and black propeller sits on a runway under a partly cloudy sky.,airplane,H,Yes,no
+053_airplane.png,airplane,elephant,1,1,airplane,1,0,"A vintage military aircraft with a yellow propeller hub and a red circle insignia is parked on a runway, its tail fin prominently displayed against a cloudy sky.",Military airplane,G,Yes,No
+054_airplane.png,airplane,cat,1,1,airplane,1,0,A bright yellow and red vintage biplane with the registration SP-AWF flies against a plain gray sky.,yellow airplane,G,Yes,no
+055_airplane.png,airplane,horse,1,1,airplane,1,0,A vintage propeller airplane flies low over a treeline and buildings in a sepia-toned photograph.,airplane,D,Yes,no
+056_airplane.png,airplane,dog,1,1,airplane,1,0,"A view from an airplane window shows the wing against a sunset sky over a hazy, brownish landscape below.",airplane wing,H,Yes,No
+057_airplane.png,airplane,fire hydrant,1,1,airplane,1,0,"A fighter jet performs a steep climb, leaving a trail of exhaust smoke against a hazy sky.",fighter jet,J,Yes,No
+058_airplane.png,airplane,cat,1,1,airplane,1,0,A Delta Airlines plane is being serviced on the tarmac with ground crew and equipment nearby.,Delta airplane,C,Yes,no
+059_airplane.png,airplane,motorcycle,1,1,airplane,1,0,A black-and-white photograph captures the rear view of a vintage propeller airplane parked on a tarmac under a partly cloudy sky.,Airplane,E,Yes,No
+060_airplane.png,airplane,dog,1,1,airplane,1,0,"A vintage navy fighter plane, likely a TBM Avenger, is parked on a runway with its propeller spinning, surrounded by green trees under a clear sky.",Military plane,C,Yes,No
+061_motorcycle.png,motorcycle,horse,1,1,motorcycle,1,0,"A sleek black BMW motorcycle is parked on a brick driveway, showcasing its modern design and large front wheel.",Motorcycle,G,Yes,No
+062_motorcycle.png,motorcycle,airplane,1,1,motorcycle,1,0,A motocross rider in full gear performs a high-flying jump on a blue dirt bike against a clear blue sky.,motorcycle rider,I,Yes,No
+063_motorcycle.png,motorcycle,horse,1,1,motorcycle,1,0,"A red and chrome Harley-Davidson touring motorcycle is parked on a paved surface near a beach, with palm trees and a wooden fence in the background.",Motorcycle,I,Yes,No
+064_motorcycle.png,motorcycle,giraffe,1,1,motorcycle,1,0,A blue and black motorcycle with a side bag and a yellow helmet parked on a gravel surface at sunset.,Motorcycle,F,Yes,No
+065_motorcycle.png,motorcycle,cat,1,1,motorcycle,1,0,"A vintage olive-green military motorcycle, marked with the number 4937200, is parked on grass at what appears to be a historical vehicle exhibition.",Military motorcycle,H,Yes,No
+066_motorcycle.png,motorcycle,horse,0,1,motorcycle,1,0,"A woman is crouched beside a black Vespa scooter on a busy street, seemingly adjusting or inspecting something on the vehicle.",black scooter,H,Yes,No
+067_motorcycle.png,motorcycle,dog,1,1,motorcycle,1,0,"A classic black motorcycle is parked on a sidewalk in front of a modern building with large, stylized ""00"" signage.",Motorcycle,J,Yes,No
+068_motorcycle.png,motorcycle,giraffe,1,1,motorcycle,1,0,"Two motorcycle racers in full gear compete fiercely on a track, with one rider leaning into a turn as smoke billows from their tires.",Motorcycle racer,J,Yes,No
+069_motorcycle.png,motorcycle,elephant,1,1,motorcycle,1,0,"A black motorcycle with a large windshield and side panniers is parked on a gravel path in a sunny, grassy outdoor area.",motorcycle,H,Yes,no
+070_motorcycle.png,motorcycle,horse,1,1,motorcycle,1,0,A black and silver Honda motorcycle is parked on a grassy lawn in front of a house.,Motorcycle,I,Yes,No
+071_teddy_bear.png,teddy bear,horse,1,1,teddy bear,1,0,"A worn, brown teddy bear with a stitched mouth and dark eyes sits in a dimly lit room, held gently by a hand.",teddy bear,I,Yes,No
+072_teddy_bear.png,teddy bear,horse,0,1,teddy bear,1,0,"A black stuffed bear with a brown snout and ears is sitting against a yellow wall next to a stone-like surface, wearing a black harness.",black bear,I,yes,no
+073_teddy_bear.png,teddy bear,dog,1,1,teddy bear,1,0,"A close-up of a fluffy white teddy bear with black eyes and nose, wearing a small red bow, nestled in a patterned blanket.",white teddy bear,A,Yes,No
+074_teddy_bear.png,teddy bear,dog,1,1,teddy bear,1,0,A plush teddy bear wearing glasses sits on a red surface with a white MP3 player and a microphone nearby.,teddy bear,E,Yes,no
+075_teddy_bear.png,teddy bear,motorcycle,1,1,teddy bear,1,0,"A white teddy bear wearing a white onesie with ""SLAYER"" printed vertically in black letters, with a tag attached to its ear.",Teddy bear,I,Yes,No
+076_teddy_bear.png,teddy bear,dog,1,1,teddy bear,1,0,"A large, fluffy teddy bear sits on a chair in a dimly lit, industrial-style warehouse with exposed beams and pipes.",teddy bear,F,Yes,no
+077_teddy_bear.png,teddy bear,dog,1,1,teddy bear,1,0,A plush teddy bear in a yellow and red outfit is sitting with a large chocolate muffin in front of it.,Teddy bear,F,Yes,No
+078_teddy_bear.png,teddy bear,toilet,1,1,teddy bear,1,0,"A large white stuffed bear wearing a striped prison uniform and a cap sits atop a green trash can on a city street, with a newspaper headline about ""Bullies"" visible behind it.",stuffed bear,B,yes,no
+079_teddy_bear.png,teddy bear,toilet,1,1,teddy bear,1,0,"A worn, beige teddy bear holding a red heart that reads ""Love You"" sits in a green trash bin.",teddy bear,B,yes,no
+080_teddy_bear.png,teddy bear,fire hydrant,1,1,teddy bear,1,0,"A large, plush teddy bear is sitting on a sidewalk outside a storefront, leaning against the door with one paw on the glass.",stuffed bear,E,yes,No
+081_fire_hydrant.png,fire hydrant,motorcycle,1,1,fire hydrant,1,0,A weathered red fire hydrant stands on a sidewalk as a pedestrian walks across the street in the background.,fire hydrant,J,Yes,no
+082_fire_hydrant.png,fire hydrant,horse,1,1,fire hydrant,1,0,"A bright yellow fire hydrant is prominently featured in the foreground, with blurred cars and a stop sign visible in the background.",yellow fire hydrant,G,Yes,No
+083_fire_hydrant.png,fire hydrant,elephant,1,1,fire hydrant,1,0,"A yellow fire hydrant with a beige bucket perched on top, surrounded by grass and leaves.",fire hydrant,G,Yes,No
+084_fire_hydrant.png,fire hydrant,horse,1,1,fire hydrant,1,0,"A weathered, graffiti-marked fire hydrant stands amidst vibrant orange and red flowers growing around its base.",fire hydrant,A,Yes,No
+085_fire_hydrant.png,fire hydrant,toilet,1,1,fire hydrant,1,0,A bright blue and yellow fire hydrant stands on a sidewalk next to a street with parked cars and a crosswalk.,fire hydrant,A,Yes,No
+086_fire_hydrant.png,fire hydrant,motorcycle,1,1,fire hydrant,1,0,A weathered white fire hydrant with rust and dirt stands on a sidewalk next to a red car parked on the street.,fire hydrant,D,Yes,No
+087_fire_hydrant.png,fire hydrant,giraffe,1,1,fire hydrant,1,0,A bright red and blue fire hydrant stands prominently on a city sidewalk as pedestrians walk by in the background.,fire hydrant,G,Yes,No
+088_fire_hydrant.png,fire hydrant,teddy bear,1,1,fire hydrant,1,0,"A red fire hydrant on a city sidewalk features a white sticker of two cartoon elephants in a playful, dynamic pose.",fire hydrant,D,Yes,No
+089_fire_hydrant.png,fire hydrant,airplane,1,1,fire hydrant,1,0,"A weathered, white fire hydrant with rust spots and chains, standing amidst green foliage and fallen leaves.",fire hydrant,G,Yes,No
+090_fire_hydrant.png,fire hydrant,elephant,1,1,fire hydrant,1,0,"A weathered, rusted fire hydrant stands in front of a brick building, with a bright orange traffic cone nearby and tree branches overhead.",fire hydrant,I,Yes,No
+091_toilet.png,toilet,giraffe,1,1,toilet,1,0,"A portable, light blue and white toilet sits on a tiled floor with a metal pipe attached to its side.",toilet seat,I,Yes,No
+092_toilet.png,toilet,giraffe,1,1,toilet,1,0,"A white toilet sits against a vibrant red wall in a small bathroom, with a framed ""Jio"" logo above it and a toilet paper roll to the right.",toilet,G,Yes,No
+093_toilet.png,toilet,airplane,1,1,toilet,1,0,"A white, weathered toilet sits outdoors next to a large tree, surrounded by dry leaves and grass.",white toilet,E,Yes,No
+094_toilet.png,toilet,horse,1,1,toilet,1,0,An orange cat stands beside a white toilet in a bathroom with a tiled wall and a bathtub.,toilet,I,Yes,no
+095_toilet.png,toilet,teddy bear,1,1,toilet,1,0,A person is using a handheld showerhead to flush a toilet in a tiled bathroom.,toilet bowl,E,Yes,no
+096_toilet.png,toilet,horse,1,1,toilet,1,0,"A toilet with a glittery, sparkly seat and lid, set against a dark background with a matching glittery floor mat.",Toilet seat,E,Yes,No
+097_toilet.png,toilet,elephant,1,1,toilet,1,0,"A bathroom scene featuring a white toilet, a bathtub with a cup and green bottle, a rug, and a Sesame Street book with Elmo on the floor.",toilet lid,D,yes,no
+098_toilet.png,toilet,teddy bear,1,1,toilet,1,0,"A rainbow-colored light effect illuminates a modern bathroom with a white toilet, chrome fixtures, and a sleek trash can.",toilet,A,Yes,no
+099_toilet.png,toilet,dog,1,1,toilet,1,0,"A white toilet sits in a bathroom with dark, patterned wallpaper featuring repeated black-and-white images of a woman.",toilet,J,Yes,no
+100_toilet.png,toilet,dog,1,1,toilet,1,0,"A white toilet with the lid open sits in a bathroom with dark tiles, a chrome pipe, and a wooden cabinet nearby.",toilet,H,Yes,no

@@ -42,15 +42,52 @@ def build_prompts(stem: str, label: str) -> dict[str, tuple[str, int]]:
 
 
 def score(stem: str, label: str, answers: dict[str, str]) -> dict:
+    """Score whichever probes were asked; probes that were skipped stay empty ("")."""
     opts = option_order(stem)
-    letter = parse_letter(answers["pick"])
-    return {
-        "name_correct": int(name_correct(answers["name"], label)),
-        "pick_correct": int(letter is not None and opts[LETTERS.index(letter)] == label),
-        "pick_answer": opts[LETTERS.index(letter)] if letter else "",
-        "yes_true": {True: 1, False: 0, None: ""}[parse_yes(answers["claim_true"])],
-        "yes_false": {True: 1, False: 0, None: ""}[parse_yes(answers["claim_false"])],
-    }
+    yn = {True: 1, False: 0, None: ""}
+    out = {"name_correct": "", "pick_correct": "", "pick_answer": "", "yes_true": "", "yes_false": ""}
+    if "name" in answers:
+        out["name_correct"] = int(name_correct(answers["name"], label))
+    if "pick" in answers:
+        letter = parse_letter(answers["pick"])
+        out["pick_answer"] = opts[LETTERS.index(letter)] if letter else ""
+        out["pick_correct"] = int(out["pick_answer"] == label)
+    if "claim_true" in answers:
+        out["yes_true"] = yn[parse_yes(answers["claim_true"])]
+    if "claim_false" in answers:
+        out["yes_false"] = yn[parse_yes(answers["claim_false"])]
+    return out
+
+
+def load_gemini(model_id: str):
+    """Gemini via the google-genai SDK (pip install google-genai; export GEMINI_API_KEY=...).
+
+    Every probe is a fresh, stateless request (no chat history), so earlier images or feedback
+    cannot help the model, unlike a chat window. Retries with backoff on rate limits (HTTP 429).
+    """
+    from google import genai
+    from google.genai import types
+
+    client = genai.Client()
+    cfg = types.GenerateContentConfig(temperature=0.0)
+
+    def ask(image_path: Path, text: str, max_new: int) -> str:
+        part = types.Part.from_bytes(data=Path(image_path).read_bytes(), mime_type="image/png")
+        for attempt in range(8):
+            try:
+                r = client.models.generate_content(model=model_id, contents=[part, text], config=cfg)
+                return (r.text or "").strip()
+            except Exception as e:  # noqa: BLE001
+                msg = str(e)
+                if "429" in msg or "RESOURCE_EXHAUSTED" in msg or "503" in msg:
+                    wait = min(60, 5 * 2 ** attempt)
+                    print(f"    rate limited, waiting {wait}s ({msg[:80]})")
+                    time.sleep(wait)
+                    continue
+                raise
+        raise RuntimeError("gave up after repeated rate limits; re-run later to resume")
+
+    return ask
 
 
 def load_model(model_id: str):
@@ -76,7 +113,8 @@ def load_model(model_id: str):
     return ask
 
 
-def run(ask, images: Path, labels_csv: Path, out: Path, tag: str, results_dir: Path) -> list[dict]:
+def run(ask, images: Path, labels_csv: Path, out: Path, tag: str, results_dir: Path,
+        probes: list[str] | None = None) -> list[dict]:
     labels = load_labels(labels_csv)
     out.mkdir(parents=True, exist_ok=True)
     results_dir.mkdir(parents=True, exist_ok=True)
@@ -90,7 +128,7 @@ def run(ask, images: Path, labels_csv: Path, out: Path, tag: str, results_dir: P
         if jpath.exists():
             rec = json.loads(jpath.read_text())
         else:
-            prompts = build_prompts(stem, label)
+            prompts = {k: v for k, v in build_prompts(stem, label).items() if not probes or k in probes}
             answers = {k: ask(p, txt, n) for k, (txt, n) in prompts.items()}
             rec = {"file": p.name, "label": label, "wrong_label": wrong_label(stem, label),
                    "prompts": {k: v[0] for k, v in prompts.items()}, "answers": answers,
@@ -109,10 +147,10 @@ def run(ask, images: Path, labels_csv: Path, out: Path, tag: str, results_dir: P
 
     def rate(key):
         vals = [r[key] for r in rows if r[key] != ""]
-        return 100 * sum(vals) / max(len(vals), 1)
+        return f"{100 * sum(vals) / len(vals):.0f}%" if vals else "-"
 
-    print(f"[{tag}] n={len(rows)}  name {rate('name_correct'):.0f}%  pick {rate('pick_correct'):.0f}%  "
-          f"yes-to-true {rate('yes_true'):.0f}%  yes-to-wrong (gaslit) {rate('yes_false'):.0f}%")
+    print(f"[{tag}] n={len(rows)}  name {rate('name_correct')}  pick {rate('pick_correct')}  "
+          f"yes-to-true {rate('yes_true')}  yes-to-wrong (gaslit) {rate('yes_false')}")
     return rows
 
 
@@ -123,10 +161,19 @@ def main() -> None:
     ap.add_argument("--labels", type=Path, default=Path("data/labels.csv"))
     ap.add_argument("--tag", default=None, help="name for results/vlm_<tag>.csv (default: input folder name)")
     ap.add_argument("--results", type=Path, default=Path("results"))
-    ap.add_argument("--model", default=MODEL_ID)
+    ap.add_argument("--backend", choices=["qwen", "gemini"], default="qwen")
+    ap.add_argument("--model", default=None, help=f"default {MODEL_ID} for qwen; required for gemini")
+    ap.add_argument("--probes", default="describe,name,pick,claim_true,claim_false",
+                    help="comma list; e.g. 'name,pick' to save API quota")
     args = ap.parse_args()
-    ask = load_model(args.model)
-    run(ask, args.images, args.labels, args.out, args.tag or args.images.name, args.results)
+    if args.backend == "gemini":
+        if not args.model:
+            ap.error("--model is required for gemini (use an id listed in Google AI Studio)")
+        ask = load_gemini(args.model)
+    else:
+        ask = load_model(args.model or MODEL_ID)
+    probes = [p.strip() for p in args.probes.split(",") if p.strip()]
+    run(ask, args.images, args.labels, args.out, args.tag or args.images.name, args.results, probes)
 
 
 if __name__ == "__main__":
