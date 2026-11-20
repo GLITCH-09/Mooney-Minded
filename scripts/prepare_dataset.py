@@ -1,26 +1,9 @@
-"""Build the 100-image Original/ set from COCO: 10 Mooney-friendly classes x 10 images.
+"""Build the 100-image set from COCO: 10 silhouette-friendly classes x 10 images.
 
-    python scripts/prepare_dataset.py
-    # -> data/Original/001_giraffe.png ..., data/masks/ (ground-truth object masks),
-    #    data/labels.csv, data/selection_sheet.png
+    python -m scripts.prepare_dataset   # -> data/Original, data/masks, data/labels.csv, data/selection_sheet.png
 
-Why these classes: a Mooney image keeps large-scale shape and big light/dark regions but
-destroys colour, texture, thin parts and small details. So we pick objects whose identity
-lives in a big, distinctive silhouette (giraffe neck, elephant trunk, airplane wings, hydrant
-outline) and avoid thin/texture/colour-defined ones (bicycle spokes, scissors, fruit).
-
-Image selection (all from COCO annotations, no model involved):
-  1. exactly one instance of the class, no crowd annotation of it
-  2. the object is large (8-60 % of the photo) and dominant (no other object > 50 % of its area)
-  3. its box touches at most one image border (silhouette mostly visible)
-  4. square crop around the object keeps >= 90 % of it, object fills 12-70 % of the crop
-  5. rank by figure-ground contrast (object vs. surrounding ring, grayscale) and keep the top 10
-Step 5 mirrors how Mooney stimuli are chosen for humans: the object must be separable from
-its background, otherwise a failure says something about the photo rather than the model.
-
-COCO val2017 is used first; train2017 tops up classes that run short. Only the selected
-candidate images are downloaded (not the 19 GB zips). To veto images after looking at
-data/selection_sheet.png, list their COCO ids in data/exclude.txt and re-run.
+Per class: one dominant instance covering 8-60 % of the photo, touching at most one border, kept >= 90 %
+by a square crop; candidates ranked by figure-ground contrast. COCO ids listed in data/exclude.txt are skipped.
 """
 from __future__ import annotations
 
@@ -35,24 +18,20 @@ from pathlib import Path
 import cv2
 import numpy as np
 
-CLASSES = [
-    "giraffe", "elephant", "horse", "cat", "dog",
-    "airplane", "motorcycle", "teddy bear", "fire hydrant", "toilet",
-]
+from vision.common import CLASSES
+
 ANN_URL = "http://images.cocodataset.org/annotations/annotations_trainval2017.zip"
 IMG_URL = "http://images.cocodataset.org/{split}/{file}"
 
 
-# ---------------------------------------------------------------- annotations
 def load_split(data: Path, split: str) -> dict:
-    """Return {'images': {id: img}, 'anns_by_img': {id: [ann]}, 'cat_ids': {name: id}}."""
     coco = data / "coco"
     js = coco / f"instances_{split}.json"
     if not js.exists():
         zp = coco / "annotations_trainval2017.zip"
         if not zp.exists():
             coco.mkdir(parents=True, exist_ok=True)
-            print(f"downloading annotations (~250 MB) ...")
+            print("downloading annotations (~250 MB) ...")
             urllib.request.urlretrieve(ANN_URL, zp)
         with zipfile.ZipFile(zp) as z:
             z.extract(f"annotations/instances_{split}.json", coco)
@@ -71,7 +50,6 @@ def load_split(data: Path, split: str) -> dict:
 
 
 def geometric_candidates(S: dict, cls: str, exclude: set[int]) -> list[dict]:
-    """Filters 1-3 using annotations only; returns candidates sorted by a size prior."""
     cid = S["cat_ids"][cls]
     out = []
     for img_id, anns in S["anns_by_img"].items():
@@ -81,7 +59,7 @@ def geometric_candidates(S: dict, cls: str, exclude: set[int]) -> list[dict]:
         if len(tgt) != 1 or tgt[0]["iscrowd"]:
             continue
         t = tgt[0]
-        if not isinstance(t["segmentation"], list):  # polygons only
+        if not isinstance(t["segmentation"], list):
             continue
         im = S["images"][img_id]
         W, H = im["width"], im["height"]
@@ -96,13 +74,12 @@ def geometric_candidates(S: dict, cls: str, exclude: set[int]) -> list[dict]:
         borders = (x <= 2) + (y <= 2) + (x + w >= W - 2) + (y + h >= H - 2)
         if borders > 1:
             continue
-        prior = -abs(math.log(frac / 0.30))  # prefer objects filling ~30 % of the photo
+        prior = -abs(math.log(frac / 0.30))
         out.append({"split": S["split"], "img": im, "ann": t, "prior": prior})
     out.sort(key=lambda c: c["prior"], reverse=True)
     return out
 
 
-# ---------------------------------------------------------------- pixels
 def polygon_mask(ann: dict, W: int, H: int) -> np.ndarray:
     m = np.zeros((H, W), np.uint8)
     for poly in ann["segmentation"]:
@@ -117,14 +94,13 @@ def fetch_image(data: Path, split: str, fname: str) -> np.ndarray | None:
         p.parent.mkdir(parents=True, exist_ok=True)
         try:
             urllib.request.urlretrieve(IMG_URL.format(split=split, file=fname), p)
-        except Exception as e:  # network hiccup: just skip this candidate
+        except OSError as e:
             print(f"  download failed {fname}: {e}")
             return None
     return cv2.imread(str(p), cv2.IMREAD_COLOR)
 
 
 def crop_and_score(img: np.ndarray, ann: dict, size: int):
-    """Square crop around the object; returns (img, mask, info) or None if filters 4 fail."""
     H, W = img.shape[:2]
     mask = polygon_mask(ann, W, H)
     total = int(mask.sum())
@@ -140,14 +116,15 @@ def crop_and_score(img: np.ndarray, ann: dict, size: int):
     if coverage < 0.90:
         return None
     img_r = cv2.resize(img_c, (size, size), interpolation=cv2.INTER_AREA)
-    mask_r = (cv2.resize(mask_c.astype(np.float32), (size, size), interpolation=cv2.INTER_LINEAR) > 0.5).astype(np.uint8)
+    mask_r = cv2.resize(mask_c.astype(np.float32), (size, size), interpolation=cv2.INTER_LINEAR)
+    mask_r = (mask_r > 0.5).astype(np.uint8)
     frac = float(mask_r.mean())
     if not 0.12 <= frac <= 0.70:
         return None
     gray = cv2.cvtColor(img_r, cv2.COLOR_BGR2GRAY).astype(np.float32)
     k = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))
     ring = cv2.dilate(mask_r, k) - mask_r
-    if ring.sum() < 50:  # object fills the frame, no background to compare with
+    if ring.sum() < 50:
         return None
     contrast = abs(gray[mask_r == 1].mean() - gray[ring == 1].mean()) / 255.0
     return img_r, mask_r, {"coverage": float(coverage), "area_frac": frac, "contrast": float(contrast)}
@@ -165,7 +142,6 @@ def contact_sheet(rows: list[dict], orig_dir: Path, out: Path, per_row: int = 10
     cv2.imwrite(str(out), grid)
 
 
-# ---------------------------------------------------------------- main
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", type=Path, default=Path("data"))

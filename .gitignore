@@ -1,8 +1,8 @@
-# Images and model weights stay local (the repo is public; dataset images come from ImageNet)
 data/
 outputs/
+figures/
 submission/
-*.tgz
+*.pptx
 *.pt
 *.safetensors
 __pycache__/
