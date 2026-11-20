@@ -87,5 +87,5 @@ python scripts/package.py --pptx MooneyMinded_Part1.pptx
 ## Outputs
 
 - `outputs/Result{1,2}/{Original,Mooney}/`: per-image results for the submission (JSON answers / mask overlays).
-- `results/*.csv`: scored tables (small, committed) used for the analysis and slides.
+- `results/*.csv`: scored tables (small, committed) used for the analysis.
 - Images, masks and weights are git-ignored (`data/`, `outputs/`): the repo is public and the photos are COCO's.
