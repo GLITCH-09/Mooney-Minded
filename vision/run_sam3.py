@@ -63,13 +63,20 @@ def load_model(conf: float):
     def segment(img_rgb: np.ndarray, prompts: list[str]):
         from PIL import Image
 
-        state = proc.set_image(Image.fromarray(img_rgb))
+        import torch
+
+        # SAM 3 keeps parts of the model in bf16; its README runs it under bf16 autocast.
+        # Without it: "mat1 and mat2 must have the same dtype, BFloat16 and Float".
         results = []
-        for prompt in prompts:
-            if hasattr(proc, "reset_all_prompts"):
-                proc.reset_all_prompts(state)
-            out = proc.set_text_prompt(state=state, prompt=prompt)
-            results.append((out["masks"], to_numpy(out["scores"]).reshape(-1)))
+        with torch.no_grad(), torch.autocast("cuda", dtype=torch.bfloat16):
+            state = proc.set_image(Image.fromarray(img_rgb))
+            for prompt in prompts:
+                if hasattr(proc, "reset_all_prompts"):
+                    proc.reset_all_prompts(state)
+                out = proc.set_text_prompt(state=state, prompt=prompt)
+                masks = out["masks"]
+                scores = to_numpy(out["scores"]).reshape(-1)
+                results.append((masks, scores))
         return results
 
     return segment
