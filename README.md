@@ -57,7 +57,7 @@ python vision/run_vlm.py --images data/variants/upside_down --out outputs/varian
 ```bash
 uv venv .venv-sam3 --python 3.12 && source .venv-sam3/bin/activate      # or: conda create -n sam3 python=3.12
 uv pip install torch==2.10.0 torchvision --index-url https://download.pytorch.org/whl/cu128
-git clone https://github.com/facebookresearch/sam3 ../sam3 && uv pip install -e ../sam3 opencv-python
+git clone https://github.com/facebookresearch/sam3 ../sam3 && uv pip install -e ../sam3 einops psutil "setuptools<80" pycocotools scikit-image scipy "opencv-python<4.12"   # sam3's pyproject misses these
 hf auth login        # account with access to facebook/sam3
 
 python vision/run_sam3.py --images data/Original --out outputs/Result2/Original
@@ -67,6 +67,22 @@ python vision/run_sam3.py --images data/variants/upside_down --out outputs/varia
 ```
 
 Run the two systems one after the other (12 GB is not enough for both at once).
+
+## 5. Optional add-on: Gemini on the same probes (slides only)
+
+Same prompts, one fresh stateless request per probe (no chat history). Needs `pip install google-genai` and `export GEMINI_API_KEY=...`; use a model id from Google AI Studio. Free-tier quotas are small, so `--probes name,pick` keeps it to 2 requests per image.
+
+```bash
+python vision/run_vlm.py --backend gemini --model <model-id> --probes name,pick \
+    --images data/Mooney --out outputs/extra/gemini/Mooney --tag gemini_Mooney
+```
+
+## 6. Package the submission
+
+```bash
+python scripts/package.py --pptx MooneyMinded_Part1.pptx
+# -> submission/MooneyMinded_Part1.zip + .md5; checks all counts, exits non-zero if anything is missing
+```
 
 ## Outputs
 
