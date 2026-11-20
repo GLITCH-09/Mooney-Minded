@@ -9,7 +9,17 @@ import argparse
 import json
 from pathlib import Path
 
-from .common import MAX_NEW_TOKENS, SPLITS, answer_row, list_images, load_labels, prompts, rate, write_csv, wrong_label
+from .common import (
+    MAX_NEW_TOKENS,
+    SPLITS,
+    answer_row,
+    list_images,
+    load_labels,
+    prompts,
+    rate,
+    write_csv,
+    wrong_label,
+)
 
 MODEL_ID = "Qwen/Qwen3-VL-4B-Instruct"
 

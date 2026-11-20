@@ -14,7 +14,7 @@ from pathlib import Path
 from .common import TOP10, answer_row, label_of, prompts, rate, write_csv, wrong_label
 
 SHEET = Path("results/qwen4max_web.txt")
-HEADER = re.compile(r"^=== ([OM])(\d{2}) (\w+)")
+HEADER = re.compile(r"^=== ([OM])(\d{2})\b(?:\s+(\w+))?")
 SPLIT_OF = {"O": "Original", "M": "Mooney"}
 SECTIONS = {
     ("O", "name"): "A. REQUIRED: originals, name only",
@@ -50,28 +50,42 @@ def sheet(path: Path) -> None:
     print(f"sheet -> {path}")
 
 
+def probe_of(key: tuple[str, int], prompt: str) -> str:
+    """Recover the probe from the prompt when a header lost its name."""
+    if prompt.startswith("Describe"):
+        return "describe"
+    if prompt.startswith("Which of these"):
+        return "pick"
+    if prompt.startswith("This is a photo of"):
+        return "claim_true" if label_of(TOP10[key[1] - 1]) in prompt else "claim_false"
+    return "name"
+
+
 def parse(text: str) -> tuple[dict[tuple[str, int], dict[str, str]], dict[str, str]]:
     answers: dict[tuple[str, int], dict[str, str]] = {}
-    meta = dict(re.findall(r"^# ([A-Z_]+):[ \t]*(.*)$", text, flags=re.M))
-    key = probe = None
-    body: list[str] = []
-    reading = False
+    meta = dict(re.findall(r"^# ([A-Z_]+):[ \t]*(.*)$", text, flags=re.MULTILINE))
+    key, probe, prompt, body, state = None, None, [], [], None
 
     def flush() -> None:
-        if key and probe:
-            answers.setdefault(key, {})[probe] = "\n".join(body).strip()
+        if key:
+            name = probe or probe_of(key, " ".join(prompt).strip())
+            answers.setdefault(key, {})[name] = "\n".join(body).strip()
 
     for line in text.splitlines():
         m = HEADER.match(line)
         if m:
             flush()
-            key, probe, body, reading = (m.group(1), int(m.group(2))), m.group(3), [], False
-        elif line.startswith("ANSWER:"):
-            reading, body = True, [line[len("ANSWER:"):]]
+            key, probe, prompt, body, state = (m.group(1), int(m.group(2))), m.group(3), [], [], None
         elif line.startswith("# ----------"):
             flush()
-            key = probe = None
-        elif reading:
+            key, state = None, None
+        elif line.startswith("PROMPT:"):
+            state, prompt = "prompt", [line[len("PROMPT:"):].strip()]
+        elif line.startswith("ANSWER:"):
+            state, body = "answer", [line[len("ANSWER:"):]]
+        elif state == "prompt":
+            prompt.append(line)
+        elif state == "answer":
             body.append(line)
     flush()
     return answers, meta
@@ -81,6 +95,9 @@ def score(path: Path, results: Path) -> None:
     answers, meta = parse(path.read_text())
     print(f"model: {meta.get('MODEL_SHOWN_ON_SITE') or '?'}  thinking: {meta.get('THINKING_MODE') or '?'}")
     for prefix, split in SPLIT_OF.items():
+        if not any(k[0] == prefix and any(v.values()) for k, v in answers.items()):
+            print(f"[{split}] not run")
+            continue
         rows = []
         for i, stem in enumerate(TOP10, 1):
             got = {p: a for p, a in answers.get((prefix, i), {}).items() if a}

@@ -9,6 +9,19 @@
 | Result1 | **Qwen3-VL-4B-Instruct**, local, all 100 images<br>**Qwen4-Max**, chat.qwen.ai, top 10, same prompts | Can it describe and name the object? Can it be talked into a wrong one? |
 | Result2 | **SAM 3**, local, all 100 images | Given the class name, does it find and outline the object? Given a box, can it outline it? Does it hallucinate a wrong class? |
 
+## Results
+
+| | Photos | Mooneys |
+|---|---|---|
+| Qwen3-VL-4B names the object (all 100) | 97 % | 1 % |
+| Qwen3-VL-4B picks it from 10 classes (all 100) | 100 % | 11 % |
+| Qwen3-VL-4B / Qwen4-Max name it (top 10) | 10/10 / not run | 0/10 / 2/10 |
+| "Yes" to a wrong class: Qwen3-VL-4B (all 100) / Qwen4-Max (top 10) | 0 % / not run | 6 % / 0/10 |
+| SAM 3 finds it from the class name (all 100) | 100 % | 3 % |
+| SAM 3 outlines it from a box, IoU ≥ 0.5 (all 100) | 100 % | 87 % |
+
+Qwen4-Max was asked each question in a fresh chat with blind file names; raw replies are in `results/qwen4max_web.txt`.
+
 Everything runs from the repository root as modules. Images, outputs and weights stay local (`data/`, `outputs/`).
 
 ## Setup

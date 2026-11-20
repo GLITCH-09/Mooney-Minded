@@ -13,10 +13,10 @@ import cv2
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-import numpy as np  # noqa: E402
+import matplotlib.pyplot as plt
+import numpy as np
 
-from vision.common import CLASSES, TOP10, label_of, name_correct, read_csv  # noqa: E402
+from vision.common import CLASSES, TOP10, label_of, name_correct, read_csv
 
 BG, INK, MUTED, GRID, PALE = "#f7f6f3", "#181818", "#6f6f6b", "#e4e2dc", "#c9c6bd"
 BLUE, ORANGE = "#2a78d6", "#e55235"
@@ -103,26 +103,51 @@ def bar_labels(ax, bars, fmt) -> None:
 
 
 def scale(res: Path, out: Path) -> None:
-    small = {s: top10(read_csv(res / f"qwen3vl4b_{s}.csv")) for s in ("Original", "Mooney")}
-    big = {s: read_csv(res / f"qwen4max_{s}.csv") for s in ("Original", "Mooney")}
-    groups = [("Photo:\nnames it", "Original", "name_correct"), ("Mooney:\nnames it", "Mooney", "name_correct")]
-    if len(num(big["Mooney"], "pick_correct")):
-        groups.append(("Mooney:\npicks it from 10", "Mooney", "pick_correct"))
+    small = top10(read_csv(res / "qwen3vl4b_Mooney.csv"))
+    big = top10(read_csv(res / "qwen4max_Mooney.csv"))
+    groups = [(name, key) for name, key in (("names it", "name_correct"), ("picks it from 10", "pick_correct"),
+                                            ("says yes to\nthe true class", "yes_true"),
+                                            ("says yes to a wrong\nclass (lower = better)", "yes_false"))
+              if len(num(big, key))]
     x, w = np.arange(len(groups)), 0.36
     fig, ax = plt.subplots(figsize=(8, 4.6))
     series = ((-w / 2, BLUE, "Qwen3-VL-4B (local)", small), (w / 2, ORANGE, "Qwen4-Max (web)", big))
     for shift, color, name, data in series:
-        vals = [num(data[s], k).sum() for _, s, k in groups]
+        vals = [num(data, k).sum() for _, k in groups]
         bars = ax.bar(x + shift, vals, w * 0.92, color=color, label=name, zorder=3)
         bar_labels(ax, bars, lambda v: f"{v:.0f}/10")
     ax.set_xticks(x, [g[0] for g in groups], color=INK)
     ax.set_ylim(0, 11.5)
     ax.set_yticks([0, 5, 10])
-    ax.set_ylabel("top-10 images")
+    ax.set_ylabel("top-10 Mooneys")
     ax.grid(axis="y", color=GRID, zorder=0)
     ax.legend(loc="upper right", ncol=2, bbox_to_anchor=(1, 1.13))
-    ax.set_title("Same prompts, same 10 images: small vs. flagship Qwen", pad=30)
+    ax.set_title("Same 10 Mooneys, same prompts: small vs. flagship Qwen", pad=30)
     save(fig, out, "qwen_scale.png")
+
+
+def names(res: Path, out: Path) -> None:
+    models = [("Qwen3-VL-4B", top10(read_csv(res / "qwen3vl4b_Mooney.csv"))),
+              ("Qwen4-Max", top10(read_csv(res / "qwen4max_Mooney.csv")))]
+    fig, ax = plt.subplots(figsize=(9.6, 7))
+    ax.set_axis_off()
+    ax.set_xlim(0, 2.9)
+    ax.set_ylim(len(TOP10) + 0.8, -1.2)
+    for x, head in zip((0, 0.95, 2.08), ["Mooney of a …"] + [m[0] for m in models], strict=True):
+        ax.text(x, -0.75, head, fontsize=19, fontweight="bold", color=MUTED, va="center")
+    for i, stem in enumerate(TOP10):
+        ax.axhline(i - 0.5, color=GRID, lw=1)
+        ax.text(0, i, label_of(stem), fontsize=20, fontweight="bold", color=INK, va="center")
+        for x, (_, rows) in zip((0.95, 2.08), models, strict=True):
+            hit = rows[i]["name_correct"] == "1"
+            answer = rows[i]["ans_name"].strip().rstrip(".")
+            ax.text(x, i, answer[:1].upper() + answer[1:] + (" ✓" if hit else ""), fontsize=20, va="center",
+                    color=ORANGE if hit else INK, fontweight="bold" if hit else "normal")
+    ax.axhline(len(TOP10) - 0.5, color=PALE, lw=1.5)
+    for x, (_, rows) in zip((0.95, 2.08), models, strict=True):
+        ax.text(x, len(TOP10) + 0.25, f"{sum(r['name_correct'] == '1' for r in rows)}/10 named",
+                fontsize=20, fontweight="bold", color=INK, va="center")
+    save(fig, out, "qwen_names.png")
 
 
 def sees(res: Path, out: Path) -> None:
@@ -193,14 +218,30 @@ def sam_scores(res: Path, out: Path) -> None:
     save(fig, out, "sam_scores.png")
 
 
-def sam_iou(res: Path, out: Path) -> None:
+def box_fill(data: Path) -> dict[str, float]:
+    """IoU of the prompt box itself with the true mask: the score of answering 'the whole box'."""
+    fills = {}
+    for path in sorted((data / "masks").glob("*.png")):
+        mask = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE) > 127
+        ys, xs = np.nonzero(mask)
+        fills[path.stem] = float(mask.sum() / ((np.ptp(ys) + 1) * (np.ptp(xs) + 1)))
+    return fills
+
+
+def sam_iou(res: Path, data: Path, out: Path) -> None:
     o, m = read_csv(res / "sam3_Original.csv"), read_csv(res / "sam3_Mooney.csv")
-    fig, ax = plt.subplots(figsize=(8, 4.4))
-    strips(ax, [("Photo · class name", num(o, "text_best_iou"), BLUE),
-                ("Mooney · class name", num(m, "text_best_iou"), ORANGE),
-                ("Photo · box", num(o, "box_iou"), BLUE),
-                ("Mooney · box", num(m, "box_iou"), ORANGE)],
-           "overlap with the true outline (IoU, SAM 3's best mask)", lambda v: f"median {np.median(v):.2f}")
+    series = [("Photo · class name", num(o, "text_best_iou"), BLUE),
+              ("Mooney · class name", num(m, "text_best_iou"), ORANGE),
+              ("Photo · box", num(o, "box_iou"), BLUE),
+              ("Mooney · box", num(m, "box_iou"), ORANGE)]
+    fills = box_fill(data) if (data / "masks").is_dir() else {}
+    if fills:
+        series.append(("the box alone", np.array([fills[Path(r["file"]).stem] for r in m]), MUTED))
+        beats = sum(float(r["box_iou"]) > fills[Path(r["file"]).stem] for r in m)
+        print(f"  box alone (no SAM): median IoU {np.median(list(fills.values())):.2f}; "
+              f"SAM 3 with the box beats it on {beats}/{len(m)} Mooneys")
+    fig, ax = plt.subplots(figsize=(8, 1.1 * len(series) + 0.8))
+    strips(ax, series, "overlap with the true outline (IoU, SAM 3's best mask)", lambda v: f"median {np.median(v):.2f}")
     ax.set_title("How well SAM 3's best mask matches the true outline")
     save(fig, out, "sam_iou.png")
 
@@ -269,17 +310,17 @@ def main() -> None:
     ap.add_argument("--out", type=Path, default=Path("figures"))
     args = ap.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
-    have = lambda *names: all((args.results / n).exists() for n in names)  # noqa: E731
+    have = lambda *names: all((args.results / n).exists() for n in names)
     jobs = [
         ((args.data / "Mooney").is_dir(), lambda: gallery(args.data, args.out)),
         ((args.outputs / "Result2" / "Mooney").is_dir(), lambda: sam_grid(args.outputs, args.out)),
         (have("qwen3vl4b_Mooney.csv"), lambda: sees(args.results, args.out)),
         (have("qwen3vl4b_Mooney.csv"), lambda: toilet(args.results, args.out)),
         (have("qwen3vl4b_Original.csv", "qwen3vl4b_Mooney.csv"), lambda: gaslight(args.results, args.out)),
-        (have("qwen3vl4b_Original.csv", "qwen4max_Original.csv", "qwen4max_Mooney.csv"),
-         lambda: scale(args.results, args.out)),
+        (have("qwen3vl4b_Mooney.csv", "qwen4max_Mooney.csv"), lambda: scale(args.results, args.out)),
+        (have("qwen3vl4b_Mooney.csv", "qwen4max_Mooney.csv"), lambda: names(args.results, args.out)),
         (have("sam3_Original.csv", "sam3_Mooney.csv"), lambda: sam_scores(args.results, args.out)),
-        (have("sam3_Original.csv", "sam3_Mooney.csv"), lambda: sam_iou(args.results, args.out)),
+        (have("sam3_Original.csv", "sam3_Mooney.csv"), lambda: sam_iou(args.results, args.data, args.out)),
         (have("qwen3vl4b_Mooney.csv", "sam3_Mooney.csv"), lambda: scoreboard(args.data, args.results, args.out)),
     ]
     print(f"figures -> {args.out}")

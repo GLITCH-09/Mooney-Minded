@@ -1,0 +1,101 @@
+file,label,wrong_label,text_score,text_found,text_n,text_iou,text_best_iou,box_iou,box_quality,wrong_score,wrong_found
+001_giraffe.png,giraffe,airplane,0.9609,1,1,0.8837,0.8837,0.922,0.9609,0.0002,0
+002_giraffe.png,giraffe,dog,0.9805,1,1,0.9201,0.9201,0.9214,0.9883,0.0018,0
+003_giraffe.png,giraffe,teddy bear,0.9844,1,1,0.9465,0.9465,0.9515,0.9805,0.0001,0
+004_giraffe.png,giraffe,elephant,0.9766,1,1,0.8891,0.8891,0.9011,0.9727,0.0005,0
+005_giraffe.png,giraffe,cat,0.9766,1,1,0.8871,0.8871,0.8924,0.9531,0.0061,0
+006_giraffe.png,giraffe,toilet,0.9805,1,1,0.934,0.934,0.9475,0.9727,0.0001,0
+007_giraffe.png,giraffe,airplane,0.9609,1,1,0.9539,0.9539,0.9589,0.9766,0.0002,0
+008_giraffe.png,giraffe,motorcycle,0.9805,1,1,0.9554,0.9554,0.966,0.9805,0.0001,0
+009_giraffe.png,giraffe,elephant,0.9805,1,1,0.8276,0.8276,0.8421,0.9492,0.0009,0
+010_giraffe.png,giraffe,motorcycle,0.9766,1,1,0.9265,0.9265,0.9318,0.9688,0.0001,0
+011_elephant.png,elephant,giraffe,0.9688,1,1,0.8767,0.8767,0.8854,0.9609,0.0023,0
+012_elephant.png,elephant,fire hydrant,0.9766,1,1,0.901,0.901,0.9148,0.9648,0.0,0
+013_elephant.png,elephant,giraffe,0.9688,1,1,0.9325,0.9325,0.9519,0.9688,0.001,0
+014_elephant.png,elephant,toilet,0.9336,1,1,0.9087,0.9087,0.9017,0.957,0.0113,0
+015_elephant.png,elephant,giraffe,0.9648,1,1,0.9117,0.9117,0.9177,0.9805,0.0014,0
+016_elephant.png,elephant,motorcycle,0.9727,1,1,0.8938,0.8938,0.8998,0.9805,0.0001,0
+017_elephant.png,elephant,toilet,0.9805,1,1,0.9489,0.9489,0.9501,0.9844,0.0007,0
+018_elephant.png,elephant,airplane,0.9492,1,1,0.8197,0.8197,0.8484,0.9688,0.0029,0
+019_elephant.png,elephant,airplane,0.9492,1,1,0.7763,0.7763,0.8453,0.9414,0.0,0
+020_elephant.png,elephant,cat,0.9688,1,1,0.9131,0.9131,0.9203,0.9766,0.0005,0
+021_horse.png,horse,airplane,0.7305,1,1,0.9297,0.9297,0.9416,0.9688,0.0,0
+022_horse.png,horse,cat,0.9727,1,1,0.8965,0.8965,0.9069,0.9805,0.0003,0
+023_horse.png,horse,airplane,0.9688,1,1,0.8244,0.8244,0.8319,0.9727,0.0,0
+024_horse.png,horse,toilet,0.9648,1,1,0.8686,0.8686,0.8748,0.9258,0.0018,0
+025_horse.png,horse,fire hydrant,0.9844,1,1,0.9484,0.9484,0.947,0.9883,0.0,0
+026_horse.png,horse,cat,0.9727,1,1,0.7243,0.7243,0.712,0.875,0.0005,0
+027_horse.png,horse,giraffe,0.9336,1,1,0.9276,0.9276,0.9313,0.9609,0.0014,0
+028_horse.png,horse,giraffe,0.9258,1,1,0.8248,0.8248,0.8429,0.9023,0.0017,0
+029_horse.png,horse,cat,0.957,1,1,0.8018,0.8018,0.8169,0.918,0.0002,0
+030_horse.png,horse,cat,0.9453,1,4,0.7022,0.7494,0.7595,0.8984,0.0004,0
+031_cat.png,cat,motorcycle,0.957,1,1,0.9377,0.9377,0.9412,0.9648,0.0,0
+032_cat.png,cat,toilet,0.8867,1,1,0.7736,0.7736,0.8508,0.9141,0.0017,0
+033_cat.png,cat,fire hydrant,0.9727,1,1,0.9414,0.9414,0.9402,0.9688,0.0,0
+034_cat.png,cat,horse,0.9531,1,1,0.9541,0.9541,0.9648,0.9688,0.0001,0
+035_cat.png,cat,fire hydrant,0.9805,1,1,0.9694,0.9694,0.9749,0.9883,0.0068,0
+036_cat.png,cat,teddy bear,0.9531,1,1,0.89,0.89,0.8963,0.9648,0.0002,0
+037_cat.png,cat,teddy bear,0.9609,1,2,0.957,0.9221,0.9371,0.9766,0.0004,0
+038_cat.png,cat,airplane,0.9609,1,1,0.9662,0.9662,0.9727,0.9883,0.0,0
+039_cat.png,cat,horse,0.9336,1,1,0.8487,0.8487,0.9096,0.9766,0.0,0
+040_cat.png,cat,teddy bear,0.8828,1,2,0.9255,0.9202,0.9355,0.9844,0.0293,0
+041_dog.png,dog,fire hydrant,0.9531,1,1,0.8506,0.8506,0.8492,0.9805,0.0,0
+042_dog.png,dog,cat,0.9727,1,1,0.8863,0.8863,0.8776,0.9336,0.0009,0
+043_dog.png,dog,airplane,0.9492,1,1,0.8446,0.8446,0.8745,0.9688,0.0,0
+044_dog.png,dog,teddy bear,0.9531,1,1,0.8979,0.8979,0.9641,0.9141,0.013,0
+045_dog.png,dog,cat,0.9727,1,1,0.8915,0.8915,0.8818,0.9805,0.0008,0
+046_dog.png,dog,fire hydrant,0.9648,1,1,0.8244,0.8244,0.8814,0.9258,0.0003,0
+047_dog.png,dog,airplane,0.9766,1,1,0.9607,0.9607,0.9617,0.9883,0.0,0
+048_dog.png,dog,fire hydrant,0.957,1,1,0.9363,0.9363,0.9445,0.9766,0.0001,0
+049_dog.png,dog,toilet,0.9688,1,1,0.9297,0.9297,0.935,0.9688,0.0007,0
+050_dog.png,dog,horse,0.9727,1,1,0.9207,0.9207,0.9226,0.9766,0.0001,0
+051_airplane.png,airplane,teddy bear,0.918,1,1,0.9204,0.9204,0.9231,0.9766,0.0002,0
+052_airplane.png,airplane,horse,0.9648,1,1,0.8918,0.8918,0.8941,0.9609,0.0,0
+053_airplane.png,airplane,elephant,0.9648,1,1,0.8358,0.8358,0.8442,0.9648,0.0001,0
+054_airplane.png,airplane,cat,0.9727,1,1,0.8982,0.8982,0.9035,0.9727,0.0005,0
+055_airplane.png,airplane,horse,0.9727,1,1,0.8362,0.8362,0.8598,0.957,0.0001,0
+056_airplane.png,airplane,dog,0.9531,1,1,0.9605,0.9605,0.9645,0.9531,0.0002,0
+057_airplane.png,airplane,fire hydrant,0.9258,1,1,0.9066,0.9066,0.9068,0.9688,0.0002,0
+058_airplane.png,airplane,cat,0.8555,1,1,0.8443,0.8443,0.8635,0.8945,0.0003,0
+059_airplane.png,airplane,motorcycle,0.9453,1,2,0.875,0.7774,0.8818,0.9219,0.0011,0
+060_airplane.png,airplane,dog,0.8242,1,1,0.7453,0.7453,0.6943,0.875,0.0001,0
+061_motorcycle.png,motorcycle,horse,0.9258,1,1,0.9144,0.9144,0.9161,0.9805,0.0,0
+062_motorcycle.png,motorcycle,airplane,0.9297,1,1,0.9089,0.9089,0.905,0.9492,0.0001,0
+063_motorcycle.png,motorcycle,horse,0.9492,1,1,0.8875,0.8875,0.8968,0.9453,0.0,0
+064_motorcycle.png,motorcycle,giraffe,0.9453,1,1,0.8104,0.8104,0.8641,0.9648,0.0006,0
+065_motorcycle.png,motorcycle,cat,0.9336,1,1,0.8843,0.8843,0.8971,0.957,0.0006,0
+066_motorcycle.png,motorcycle,horse,0.9336,1,1,0.7824,0.7824,0.7952,0.9336,0.0002,0
+067_motorcycle.png,motorcycle,dog,0.9609,1,1,0.8283,0.8283,0.8486,0.957,0.0003,0
+068_motorcycle.png,motorcycle,giraffe,0.9219,1,1,0.68,0.68,0.9541,0.9336,0.0007,0
+069_motorcycle.png,motorcycle,elephant,0.9219,1,1,0.8777,0.8777,0.9266,0.9414,0.0003,0
+070_motorcycle.png,motorcycle,horse,0.9062,1,1,0.9093,0.9093,0.9285,0.9727,0.0,0
+071_teddy_bear.png,teddy bear,horse,0.9766,1,1,0.9502,0.9502,0.9498,0.9883,0.0001,0
+072_teddy_bear.png,teddy bear,horse,0.9141,1,2,0.7831,0.9381,0.9296,0.9531,0.0004,0
+073_teddy_bear.png,teddy bear,dog,0.957,1,1,0.9074,0.9074,0.9184,0.9531,0.0283,0
+074_teddy_bear.png,teddy bear,dog,0.9492,1,1,0.831,0.831,0.8356,0.957,0.0052,0
+075_teddy_bear.png,teddy bear,motorcycle,0.957,1,1,0.9482,0.9482,0.95,0.9844,0.0001,0
+076_teddy_bear.png,teddy bear,dog,0.9609,1,1,0.8572,0.8572,0.876,0.9414,0.0035,0
+077_teddy_bear.png,teddy bear,dog,0.9414,1,1,0.5317,0.5317,0.9306,0.9648,0.0161,0
+078_teddy_bear.png,teddy bear,toilet,0.9609,1,1,0.9407,0.9407,0.9502,0.9844,0.0009,0
+079_teddy_bear.png,teddy bear,toilet,0.8594,1,1,0.6695,0.6695,0.6914,0.9219,0.0015,0
+080_teddy_bear.png,teddy bear,fire hydrant,0.9648,1,1,0.8996,0.8996,0.9285,0.9766,0.0069,0
+081_fire_hydrant.png,fire hydrant,motorcycle,0.9727,1,1,0.9092,0.9092,0.9166,0.9805,0.011,0
+082_fire_hydrant.png,fire hydrant,horse,0.9609,1,1,0.956,0.956,0.9541,0.9844,0.0,0
+083_fire_hydrant.png,fire hydrant,elephant,0.957,1,1,0.7267,0.7267,0.951,0.9883,0.0003,0
+084_fire_hydrant.png,fire hydrant,horse,0.9492,1,1,0.8127,0.8127,0.8419,0.9492,0.0001,0
+085_fire_hydrant.png,fire hydrant,toilet,0.9727,1,1,0.8745,0.8745,0.8905,0.9805,0.0002,0
+086_fire_hydrant.png,fire hydrant,motorcycle,0.957,1,1,0.8995,0.8995,0.9029,0.9805,0.0009,0
+087_fire_hydrant.png,fire hydrant,giraffe,0.9453,1,1,0.9295,0.9295,0.9423,0.9844,0.0021,0
+088_fire_hydrant.png,fire hydrant,teddy bear,0.9609,1,1,0.9389,0.9389,0.9346,0.9805,0.0028,0
+089_fire_hydrant.png,fire hydrant,airplane,0.9531,1,1,0.9331,0.9331,0.9428,0.9766,0.0001,0
+090_fire_hydrant.png,fire hydrant,elephant,0.9258,1,1,0.9051,0.9051,0.9247,0.9766,0.0016,0
+091_toilet.png,toilet,giraffe,0.9414,1,1,0.9628,0.9628,0.9626,0.9805,0.0007,0
+092_toilet.png,toilet,giraffe,0.9648,1,1,0.9339,0.9339,0.9328,0.9805,0.0125,0
+093_toilet.png,toilet,airplane,0.9492,1,1,0.9566,0.9566,0.9586,0.9883,0.0001,0
+094_toilet.png,toilet,horse,0.9688,1,1,0.9688,0.9688,0.9706,0.9844,0.0,0
+095_toilet.png,toilet,teddy bear,0.9648,1,1,0.9187,0.9187,0.9282,0.9727,0.0001,0
+096_toilet.png,toilet,horse,0.9492,1,1,0.9424,0.9424,0.9507,0.9805,0.0,0
+097_toilet.png,toilet,elephant,0.9609,1,2,0.8304,0.849,0.8999,0.9922,0.0179,0
+098_toilet.png,toilet,teddy bear,0.9648,1,1,0.9514,0.9514,0.9558,0.9727,0.0,0
+099_toilet.png,toilet,dog,0.9766,1,1,0.9651,0.9651,0.9652,0.9844,0.0012,0
+100_toilet.png,toilet,dog,0.9492,1,1,0.9665,0.9665,0.9683,0.9883,0.0018,0

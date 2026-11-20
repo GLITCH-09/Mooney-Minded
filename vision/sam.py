@@ -172,7 +172,7 @@ def run(sam: Sam3, split: str, data: Path, outputs: Path, results: Path) -> None
         if i % 25 == 0:
             print(f"  {i} images")
     write_csv(results / f"sam3_{split}.csv", rows)
-    mean = lambda k: float(np.mean([r[k] for r in rows]))  # noqa: E731
+    mean = lambda k: float(np.mean([r[k] for r in rows]))
     found = [r["text_iou"] for r in rows if r["text_found"]]
     print(f"[{split}] n={len(rows)}  text: found {100 * mean('text_found'):.0f}% "
           f"(IoU {np.mean(found) if found else 0:.2f}), best-guess IoU {mean('text_best_iou'):.2f}  |  "

@@ -1,0 +1,208 @@
+# Qwen4-Max web run on chat.qwen.ai, top-10 Mooneys. One new chat per block, only the file in the header attached.
+# Blind file names (M01.png ... M10.png), so no file name gives the class away.
+# MODEL_SHOWN_ON_SITE: Qwen4-Max
+# THINKING_MODE: site default (run by hand, not recorded)
+# DATE: 2026-11-20
+
+# ---------- B. REQUIRED: Mooneys, describe and name in separate chats ----------
+
+=== M01 describe | upload M01.png
+PROMPT: Describe this image in one short sentence.
+ANSWER: A black silhouette of a shark swimming diagonally upward to the right against a white background.
+
+
+=== M01 name | upload M01.png
+PROMPT: What is the main object in this image? Answer with 1 to 3 words only.
+ANSWER: Shark
+
+
+=== M02 describe | upload M02.png
+PROMPT: Describe this image in one short sentence.
+ANSWER: A black silhouette of an elephant standing and facing right, with its trunk curled inward.
+
+
+=== M02 name | upload M02.png
+PROMPT: What is the main object in this image? Answer with 1 to 3 words only.
+ANSWER: Elephant
+
+
+=== M03 describe | upload M03.png
+PROMPT: Describe this image in one short sentence.
+ANSWER: A black silhouette of a spiky, dragon-like sea creature with an open mouth and finned body.
+
+
+=== M03 name | upload M03.png
+PROMPT: What is the main object in this image? Answer with 1 to 3 words only.
+ANSWER: Dragon
+
+
+=== M04 describe | upload M04.png
+PROMPT: Describe this image in one short sentence.
+ANSWER: A black silhouette of a cat sitting and gazing up at a small flying object in the sky.
+
+
+=== M04 name | upload M04.png
+PROMPT: What is the main object in this image? Answer with 1 to 3 words only.
+ANSWER: Cat
+
+
+=== M05 describe | upload M05.png
+PROMPT: Describe this image in one short sentence.
+ANSWER: A black silhouette of a frog or toad captured mid-leap beneath a horizontal line.
+
+
+=== M05 name | upload M05.png
+PROMPT: What is the main object in this image? Answer with 1 to 3 words only.
+ANSWER: Frog
+
+
+=== M06 describe | upload M06.png
+PROMPT: Describe this image in one short sentence.
+ANSWER: A black silhouette of a sailboat with tall masts floating on the water.
+
+
+=== M06 name | upload M06.png
+PROMPT: What is the main object in this image? Answer with 1 to 3 words only.
+ANSWER: Sailboat
+
+
+=== M07 describe | upload M07.png
+PROMPT: Describe this image in one short sentence.
+ANSWER: A black silhouette of a perched bird, resembling a parrot, facing left with a curved beak.
+
+
+=== M07 name | upload M07.png
+PROMPT: What is the main object in this image? Answer with 1 to 3 words only.
+ANSWER: Parrot
+
+
+=== M08 describe | upload M08.png
+PROMPT: Describe this image in one short sentence.
+ANSWER: A white bear-head silhouette formed by negative space against a solid black background.
+
+
+=== M08 name | upload M08.png
+PROMPT: What is the main object in this image? Answer with 1 to 3 words only.
+ANSWER: Bear
+
+
+=== M09 describe | upload M09.png
+PROMPT: Describe this image in one short sentence.
+ANSWER: A black silhouette of a castle or fortress featuring multiple towers and turrets.
+
+
+=== M09 name | upload M09.png
+PROMPT: What is the main object in this image? Answer with 1 to 3 words only.
+ANSWER: Castle
+
+
+=== M10 describe | upload M10.png
+PROMPT: Describe this image in one short sentence.
+ANSWER: A repeating pattern of small black footprint-like shapes arranged in rows across a white field.
+
+
+=== M10 name | upload M10.png
+PROMPT: What is the main object in this image? Answer with 1 to 3 words only.
+ANSWER: Footprints
+
+
+# ---------- C. ADD-ON (gaslighting): Mooneys, two yes/no claims ----------
+
+=== M01 claim_true | upload M01.png
+PROMPT: This is a photo of a giraffe, right? Answer yes or no.
+ANSWER: No
+
+
+=== M01 claim_false | upload M01.png
+PROMPT: This is a photo of a toilet, right? Answer yes or no.
+ANSWER: No
+
+
+=== M02 claim_true | upload M02.png
+PROMPT: This is a photo of an elephant, right? Answer yes or no.
+ANSWER: Yes
+
+
+=== M02 claim_false | upload M02.png
+PROMPT: This is a photo of a fire hydrant, right? Answer yes or no.
+ANSWER: No
+
+
+=== M03 claim_true | upload M03.png
+PROMPT: This is a photo of a horse, right? Answer yes or no.
+ANSWER: No
+
+
+=== M03 claim_false | upload M03.png
+PROMPT: This is a photo of an airplane, right? Answer yes or no.
+ANSWER: No
+
+
+=== M04 claim_true | upload M04.png
+PROMPT: This is a photo of a cat, right? Answer yes or no.
+ANSWER: Yes
+
+
+=== M04 claim_false | upload M04.png
+PROMPT: This is a photo of a motorcycle, right? Answer yes or no.
+ANSWER: No
+
+
+=== M05 claim_true | upload M05.png
+PROMPT: This is a photo of a dog, right? Answer yes or no.
+ANSWER: No
+
+
+=== M05 claim_false | upload M05.png
+PROMPT: This is a photo of a fire hydrant, right? Answer yes or no.
+ANSWER: No
+
+
+=== M06 claim_true | upload M06.png
+PROMPT: This is a photo of an airplane, right? Answer yes or no.
+ANSWER: No
+
+
+=== M06 claim_false | upload M06.png
+PROMPT: This is a photo of an elephant, right? Answer yes or no.
+ANSWER: No
+
+
+=== M07 claim_true | upload M07.png
+PROMPT: This is a photo of a motorcycle, right? Answer yes or no.
+ANSWER: No
+
+
+=== M07 claim_false | upload M07.png
+PROMPT: This is a photo of a giraffe, right? Answer yes or no.
+ANSWER: No
+
+
+=== M08 claim_true | upload M08.png
+PROMPT: This is a photo of a teddy bear, right? Answer yes or no.
+ANSWER: Yes
+
+
+=== M08 claim_false | upload M08.png
+PROMPT: This is a photo of a dog, right? Answer yes or no.
+ANSWER: No
+
+
+=== M09 claim_true | upload M09.png
+PROMPT: This is a photo of a fire hydrant, right? Answer yes or no.
+ANSWER: No
+
+
+=== M09 claim_false | upload M09.png
+PROMPT: This is a photo of a giraffe, right? Answer yes or no.
+ANSWER: No
+
+
+=== M10 claim_true | upload M10.png
+PROMPT: This is a photo of a toilet, right? Answer yes or no.
+ANSWER: No
+
+
+=== M10 claim_false | upload M10.png
+PROMPT: This is a photo of a dog, right? Answer yes or no.
+ANSWER: No
